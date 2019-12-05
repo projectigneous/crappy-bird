@@ -159,7 +159,7 @@ function render() {
         }
     }
     
-    var str = localStorage.flappyHighScore.toString().split("")
+    var str = (localStorage.flappyHighScore || 0).toString().split("")
     var x = 0
     while (str.length > 0) {
         var i = str.shift()
