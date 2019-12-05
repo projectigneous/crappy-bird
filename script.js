@@ -149,7 +149,11 @@ function render() {
     while (str.length > 0) {
         var i = str.shift()
         ctx.drawImage(loadAndGrabImage(`img/numbers/${i}.png`),x,0)
-        x += 24
+        if (i == "1") {
+            x += 16
+        } else {
+            x += 24
+        }
     }
 
     // preloader
