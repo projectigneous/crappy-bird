@@ -77,9 +77,9 @@ function render() {
     ctx.clearRect(0,0,width,height)
 
     // tile bg
-    ctx.drawImage(loadAndGrabImage(gameState.bgSprite),-(gameState.x * 0.8) % 288,0)
-    ctx.drawImage(loadAndGrabImage(gameState.bgSprite),(-(gameState.x * 0.8) % 288) + 288,0)
-    ctx.drawImage(loadAndGrabImage(gameState.bgSprite),(-(gameState.x * 0.8) % 288) + 576,0)
+    ctx.drawImage(loadAndGrabImage(gameState.bgSprite),-(gameState.x * 0.5) % 288,0)
+    ctx.drawImage(loadAndGrabImage(gameState.bgSprite),(-(gameState.x * 0.5) % 288) + 288,0)
+    ctx.drawImage(loadAndGrabImage(gameState.bgSprite),(-(gameState.x * 0.5) % 288) + 576,0)
 
     // create pipe every 100 frames
     if (gameState.x % 300 == 0) {
