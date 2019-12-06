@@ -3,13 +3,13 @@ const ctx = canvas.getContext("2d")
 const width = canvas.width; const height = canvas.height
 
 const preloaderSprites = [
+    "img/bg_night.png","img/bg.png","img/base.png",
+    "img/pipe-green.png","img/australian-pipe.png",
+    "img/numbers/0.png","img/numbers/1.png","img/numbers/2.png","img/numbers/3.png","img/numbers/4.png","img/numbers/5.png","img/numbers/6.png","img/numbers/7.png","img/numbers/8.png","img/numbers/9.png",
+    "img/gameover.png",
     "img/bird/frame1.png","img/bird/frame2.png","img/bird/frame3.png","img/bird/frame4.png",
     "img/bird_yellow/frame1.png","img/bird_yellow/frame2.png","img/bird_yellow/frame3.png","img/bird_yellow/frame4.png",
     "img/bird_red/frame1.png","img/bird_red/frame2.png","img/bird_red/frame3.png","img/bird_red/frame4.png",
-    "img/numbers/0.png","img/numbers/1.png","img/numbers/2.png","img/numbers/3.png","img/numbers/4.png","img/numbers/5.png","img/numbers/6.png","img/numbers/7.png","img/numbers/8.png","img/numbers/9.png",
-    "img/bg_night.png","img/bg.png","img/base.png",
-    "img/gameover.png",
-    "img/pipe-green.png","img/australian-pipe.png",
 ]
 
 var frame = 0
@@ -51,6 +51,18 @@ var gameState = {}
 
 resetGame()
 
+function botFrame() {
+    if (!botEnabled) {return}
+    
+    var pipe = 0
+    if (gameState.pipes[pipe][0] < gameState.x + 50) {
+        pipe = 1
+    }
+    if (gameState.position > gameState.pipes[pipe][1] ) {
+        tap()
+    }
+}
+var botEnabled = false;
 
 function tap() {
     if (gameState.running) {
@@ -176,13 +188,15 @@ function render() {
 
     // preloader
     for (var sprite of preloaderSprites) {
-        ctx.drawImage(loadAndGrabImage(sprite),0,height)
+        ctx.drawImage(loadAndGrabImage(sprite),width,0)
     }
+
 
     requestAnimationFrame(render)
 }
 requestAnimationFrame(render)
 
+setInterval(botFrame,50)
 
 window.onkeydown = tap
 canvas.onclick = tap
