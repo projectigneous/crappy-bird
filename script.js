@@ -65,9 +65,12 @@ function tap() {
 function loseState() {
     if (!gameState.running) { return }
     document.querySelector("#hitSFX").play()
-    /*if (parseInt(localStorage.flappyHighScore || "0") > gameState.score) {
-        localStorage.setItem("flappyHighScore", gameState.score)   
-    }*/
+    var stored = (localStorage.getItem("flappyHighScore"))
+    console.log(stored, gameState.score.toString())
+    if (!stored || parseInt(stored) < gameState.score) {
+        console.log("high score")
+        localStorage.setItem("flappyHighScore", gameState.score.toString())   
+    }
     gameState.running = false
 }
 var diffOffset = 50
@@ -158,7 +161,7 @@ function render() {
             x += 24
         }
     }
-    /*
+    
     var str = (localStorage.flappyHighScore || 0).toString().split("")
     var x = 0
     while (str.length > 0) {
@@ -169,7 +172,7 @@ function render() {
         } else {
             x += 24
         }
-    }*/
+    }
 
     // preloader
     for (var sprite of preloaderSprites) {
