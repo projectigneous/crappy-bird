@@ -146,8 +146,10 @@ function render() {
         gameState.x += 3
     }
     // collisions
-    if (gameState.position < 0) {
+    if (gameState.position < 0 && !noclip) {
         gameState.position = 0
+    } else if (gameState.position < 0) {
+        gameState.position = 512
     }
     if (gameState.position > 376 && !noclip) {
         gameState.position = 376
