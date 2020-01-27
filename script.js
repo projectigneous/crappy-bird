@@ -58,13 +58,13 @@ function botFrame() {
     if (gameState.pipes[pipe][0] < gameState.x + 50) {
         pipe = 1
     }
-    if (gameState.position > gameState.pipes[pipe][1] ) {
+    if (gameState.position > gameState.pipes[pipe][1] || gameState.position - gameState.momentum > 380 ) {
         tap()
     }
 }
 var botEnabled = false;
 
-function tap() {
+function tap(e) {
     if (gameState.running) {
         gameState.momentum = 50
         gameState.running = true
@@ -72,10 +72,11 @@ function tap() {
     } else {
         resetGame()
     }
+    try { checkCheats(e.key) } catch(e) {console.error(e)}
 }
 
 function loseState() {
-    if (!gameState.running) { return }
+    if (!gameState.running || invincible) { return }
     document.querySelector("#hitSFX").play()
     var stored = (localStorage.getItem("flappyHighScore"))
     console.log(stored, gameState.score.toString())
@@ -98,7 +99,7 @@ function render() {
 
     // create pipe every 100 frames
     if (gameState.x % 300 == 0) {
-        gameState.pipes.push([gameState.x + width, Math.floor(Math.random() * 350) + 25])
+        gameState.pipes.push([gameState.x + width, Math.floor(Math.random() * 250) + 75])
     }
     // scoring
     if (gameState.x % 300 == 162) {
@@ -148,9 +149,12 @@ function render() {
     if (gameState.position < 0) {
         gameState.position = 0
     }
-    if (gameState.position > 376) {
+    if (gameState.position > 376 && !noclip) {
         gameState.position = 376
         loseState()
+    }
+    if (gameState.position > 512) {
+        gameState.position = -24
     }
     
     // draw flappy
@@ -187,14 +191,16 @@ function render() {
     }
 
     // preloader
+    var i = 0
     for (var sprite of preloaderSprites) {
-        ctx.drawImage(loadAndGrabImage(sprite),width,0)
+        i += 24
+        ctx.drawImage(loadAndGrabImage(sprite),width + i ,0)
     }
 
 
-    requestAnimationFrame(render)
+    animFrame = requestAnimationFrame(render)
 }
-requestAnimationFrame(render)
+var animFrame = requestAnimationFrame(render)
 
 setInterval(botFrame,50)
 
