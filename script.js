@@ -94,8 +94,8 @@ function render() {
 
     // tile bg
     ctx.drawImage(loadAndGrabImage(gameState.bgSprite),-(gameState.x * 0.5) % 288,0)
-    ctx.drawImage(loadAndGrabImage(gameState.bgSprite),(-(gameState.x * 0.5) % 288) + 288,0)
-    ctx.drawImage(loadAndGrabImage(gameState.bgSprite),(-(gameState.x * 0.5) % 288) + 576,0)
+    ctx.drawImage(loadAndGrabImage(gameState.bgSprite),(-(gameState.x * 0.5) % 288) + 285,0)
+    ctx.drawImage(loadAndGrabImage(gameState.bgSprite),(-(gameState.x * 0.5) % 288) + 574,0)
 
     // create pipe every 100 frames
     if (gameState.x % 300 == 0) {
